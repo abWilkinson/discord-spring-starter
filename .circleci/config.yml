@@ -26,7 +26,9 @@ jobs:
           command: BINTRAY_LOC='abwilkinson/discord-spring-starter/'"$(./gradlew -q printVersion)"
       - run:
           name: Upload
-          command: jfrog bt "./build/libs/*.jar" $BINTRAY_LOC --user $BINTRAY_USER --key $BINTRAY_KEY
+          command: |
+            ./jfrog rt config --url "https://bintray.com/abwilkinson/discord-spring-starter" --user $BINTRAY_USER --apikey $BINTRAY_KEY --interactive=false
+            ./jfrog bt u "./build/libs/*.jar" abwilkinson/discord-spring-starter/release/1.0
 workflows:
   version: 2
 #  feature-branch:
