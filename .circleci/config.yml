@@ -27,9 +27,8 @@ jobs:
       - run:
           name: Upload
           command: |
-            echo $BINTRAY_LOC
             ./jfrog bt config --user $BINTRAY_USER --key $BINTRAY_KEY --interactive=false
-            ./jfrog bt u "./build/libs/*.jar" $BINTRAY_LOC --publish true
+            ./jfrog bt u "./build/libs/*.jar" 'abwilkinson/discord-spring-starter/discord-spring-starter-release/'"$(./gradlew -q printVersion)" --publish true
 workflows:
   version: 2
 #  feature-branch:
