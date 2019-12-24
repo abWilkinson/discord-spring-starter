@@ -8,9 +8,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Chmod permissions
-          command: sudo chmod +x ./gradlew
-      - run:
           name: build
           command: ./gradlew build
   buildMaster:
@@ -19,17 +16,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Chmod permissions
-          command: sudo chmod +x ./gradlew
-      - run:
-          name: status
-          command: git status
-      - run:
           name: build
-          command: ./gradlew build -P release
+          command: ./gradlew build
       - run:
           name: Set git tag
-          command: ./gradlew tag --push
+          command: ./gradlew tagVersion && git push --tags
 workflows:
   version: 2
 #  feature-branch:
