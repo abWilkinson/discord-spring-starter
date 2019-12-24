@@ -18,9 +18,6 @@ jobs:
       - run:
           name: build
           command: ./gradlew build
-      - run:
-          name: Set git tag
-          command: ./gradlew tagVersion && git push --tags
 workflows:
   version: 2
 #  feature-branch:
