@@ -23,10 +23,11 @@ jobs:
           command: curl -fL https://getcli.jfrog.io | sh
       - run:
           name: Set directory name
-          command: BINTRAY_LOC='abwilkinson/discord-spring-starter/spring-boot-discord-starter-release/'"$(./gradlew -q printVersion)"
+          command: BINTRAY_LOC='abwilkinson/discord-spring-starter/discord-spring-starter-release/'"$(./gradlew -q printVersion)"
       - run:
           name: Upload
           command: |
+            echo $BINTRAY_LOC
             ./jfrog bt config --user $BINTRAY_USER --key $BINTRAY_KEY --interactive=false
             ./jfrog bt u "./build/libs/*.jar" $BINTRAY_LOC --publish true
 workflows:
