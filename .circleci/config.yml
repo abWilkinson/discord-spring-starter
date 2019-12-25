@@ -20,7 +20,8 @@ jobs:
           command: ./gradlew build
       - run:
           name: Set version
-          command: export ORG_GRADLE_PROJECT_version="$(./gradlew -q printVersion)"
+          command: |
+            echo 'export ORG_GRADLE_PROJECT_version="$(./gradlew -q printVersion)"' >> $BASH_ENV
       - run:
           name: Upload
           command: ./gradlew bintrayUpload
