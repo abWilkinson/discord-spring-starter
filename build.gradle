@@ -3,16 +3,19 @@ plugins {
 	id 'org.springframework.boot' version '2.2.2.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id 'maven-publish'
+	id "com.jfrog.bintray" version "1.8.1"
 }
 
 group = 'abwilkinson'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
 }
-
+java {
+	withSourcesJar()
+}
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -28,5 +31,41 @@ test {
 versioner {
 	pattern {
 		pattern = "%M.%m.%p"
+	}
+}
+
+publishing {
+	publications {
+		BintrayRelease(MavenPublication) {
+			from components.java
+			artifactId archivesBaseName
+			groupId = project.group as String
+			version = project.version as String
+			versionMapping {
+				usage('java-api') {
+					fromResolutionOf('runtimeClasspath')
+				}
+				usage('java-runtime') {
+					fromResolutionResult()
+				}
+			}
+		}
+	}
+}
+
+bintray {
+	user = System.getenv('BINTRAY_USER')
+	key = System.getenv('BINTRAY_KEY')
+	setPublications("BintrayRelease")
+	pkg {
+		version {
+			name = project.version as String
+			released  = new Date()
+		}
+		repo = 'maven'
+		name = 'discord-spring-starter'
+		licenses = ['Apache-2.0']
+		vcsUrl = 'https://github.com/abWilkinson/discord-spring-starter.git'
+		publish = true
 	}
 }
