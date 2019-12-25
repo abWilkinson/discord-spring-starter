@@ -19,16 +19,11 @@ jobs:
           name: build
           command: ./gradlew build
       - run:
-          name: Install jFrog CLI
-          command: curl -fL https://getcli.jfrog.io | sh
-      - run:
-          name: Set directory name
-          command: BINTRAY_LOC='abwilkinson/discord-spring-starter/discord-spring-starter-release/'"$(./gradlew -q printVersion)"
+          name: Set version
+          command: export ORG_GRADLE_PROJECT_version="$(./gradlew -q printVersion)"
       - run:
           name: Upload
-          command: |
-            ./jfrog bt config --user $BINTRAY_USER --key $BINTRAY_KEY --interactive=false
-            ./jfrog bt u "./build/libs/*.jar" 'abwilkinson/discord-spring-starter/discord-spring-starter-release/'"$(./gradlew -q printVersion)" --publish
+          command: ./gradlew bintrayUpload
 workflows:
   version: 2
 #  feature-branch:
