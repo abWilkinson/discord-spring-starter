@@ -67,5 +67,6 @@ bintray {
 		licenses = ['Apache-2.0']
 		vcsUrl = 'https://github.com/abWilkinson/discord-spring-starter.git'
 		publish = true
+		override = true
 	}
 }
