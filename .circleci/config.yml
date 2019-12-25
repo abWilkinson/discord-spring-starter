@@ -27,15 +27,15 @@ jobs:
           command: ./gradlew bintrayUpload
 workflows:
   version: 2
-#  feature-branch:
-#    jobs:
-#      - buildBranch:
-#          filters:
-#            branches:
-#              ignore: master
+  feature-branch:
+    jobs:
+      - buildBranch:
+          filters:
+            branches:
+              ignore: master
   master-branch:
     jobs:
       - buildMaster
-#          filters:
-#            branches:
-#              only: master
+          filters:
+            branches:
+              only: master
