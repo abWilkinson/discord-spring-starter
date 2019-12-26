@@ -10,9 +10,6 @@ jobs:
       - run:
           name: build
           command: ./gradlew build
-      - run:
-          name: publish coverage
-          command: ./gradlew jacocoTestReport sendCoverageToCodacy
   buildMaster:
     docker:
       - image: circleci/openjdk:11-stretch
@@ -21,6 +18,9 @@ jobs:
       - run:
           name: build
           command: ./gradlew build
+      - run:
+          name: publish coverage
+          command: ./gradlew jacocoTestReport sendCoverageToCodacy
       - run:
           name: Set version
           command: |
