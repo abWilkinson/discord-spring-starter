@@ -97,3 +97,9 @@ task sendCoverageToCodacy(type: JavaExec, dependsOn: jacocoTestReport) {
 			"${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
 	]
 }
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
+}
