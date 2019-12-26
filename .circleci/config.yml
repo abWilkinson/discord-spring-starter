@@ -19,6 +19,9 @@ jobs:
           name: build
           command: ./gradlew build
       - run:
+          name: publish coverage
+          command: ./gradlew jacocoTestReport sendCoverageToCodacy
+      - run:
           name: Set version
           command: |
             echo 'export ORG_GRADLE_PROJECT_version="$(./gradlew -q printVersion)"' >> $BASH_ENV

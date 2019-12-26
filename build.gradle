@@ -6,11 +6,12 @@ plugins {
 	id 'maven-publish'
 	id "com.jfrog.bintray" version "1.8.1"
 	id 'java-library'
+	id 'jacoco'
 }
 
 group = 'abwilkinson'
 sourceCompatibility = '11'
-
+configurations { codacy }
 repositories {
 	mavenCentral()
 	jcenter()
@@ -19,6 +20,8 @@ java {
 	withSourcesJar()
 }
 dependencies {
+	codacy 'com.codacy:codacy-coverage-reporter:latest.release'
+
 	api 'org.springframework.boot:spring-boot-starter'
 	api 'org.springframework.boot:spring-boot-starter-web'
 
@@ -81,4 +84,22 @@ bintray {
 }
 jar {
 	enabled = true
+}
+
+task sendCoverageToCodacy(type: JavaExec, dependsOn: jacocoTestReport) {
+	main = "com.codacy.CodacyCoverageReporter"
+	classpath = configurations.codacy
+	args = [
+			"report",
+			"-l",
+			"Java",
+			"-r",
+			"${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
+	]
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
 }
