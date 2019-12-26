@@ -5,6 +5,7 @@ plugins {
 	id 'java'
 	id 'maven-publish'
 	id "com.jfrog.bintray" version "1.8.1"
+	id 'java-library'
 }
 
 group = 'abwilkinson'
@@ -18,10 +19,10 @@ java {
 	withSourcesJar()
 }
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	api 'org.springframework.boot:spring-boot-starter'
+	api 'org.springframework.boot:spring-boot-starter-web'
 
-	implementation 'net.dv8tion:JDA:4.BETA.0_1'
+	api 'net.dv8tion:JDA:4.BETA.0_1'
 
 	compileOnly 'org.projectlombok:lombok:1.18.8'
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
