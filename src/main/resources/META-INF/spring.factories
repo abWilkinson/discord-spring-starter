@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  abwilkinson.discordspringstarter.config.SpringStarterConfig
