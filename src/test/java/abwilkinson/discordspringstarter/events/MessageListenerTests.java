@@ -5,7 +5,6 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 		String expectedMessage = "test";
 		String rawMessage = "!" + expectedMessage;
 		MessageReceivedEvent event = getMockEvent(rawMessage);
-		when(testCommandEventHandler.matches(Mockito.any(InputValues.class))).thenReturn(true);
+		when(testCommandEventHandler.matches(any(InputValues.class))).thenReturn(true);
 		messageListener.onMessageReceived(event);
 
 		verify(testCommandEventHandler, times(1)).messageReceived(event, new InputValues(expectedMessage));
@@ -39,7 +38,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 		String expectedMessage = "test";
 		String rawMessage = "!" + expectedMessage;
 		MessageReceivedEvent event = getMockEvent(rawMessage);
-		when(testStatefulEventHandler.matches(Mockito.any(InputValues.class))).thenReturn(true);
+		when(testStatefulEventHandler.matches(any(InputValues.class))).thenReturn(true);
 		when(event.getAuthor().getIdLong()).thenReturn(1L);
 
 		messageListener.onMessageReceived(event);
@@ -51,7 +50,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 	public void setTestStatefulEventHandlerReceivesNonCommands() {
 		String expectedMessage = "test";
 		MessageReceivedEvent event = getMockEvent(expectedMessage);
-		when(testStatefulEventHandler.matches(Mockito.any(InputValues.class))).thenReturn(true);
+		when(testStatefulEventHandler.matches(any(InputValues.class))).thenReturn(true);
 		when(event.getAuthor().getIdLong()).thenReturn(1L);
 
 		messageListener.onMessageReceived(event);
@@ -64,7 +63,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 		String expectedMessage = "asdasdasd";
 		String rawMessage = "!" + expectedMessage;
 		MessageReceivedEvent event = getMockEvent(rawMessage);
-		when(testCommandEventHandler.matches(Mockito.any(InputValues.class))).thenReturn(false);
+		when(testCommandEventHandler.matches(any(InputValues.class))).thenReturn(false);
 		messageListener.onMessageReceived(event);
 
 		verify(testCommandEventHandler, never()).messageReceived(event, new InputValues(expectedMessage));
@@ -75,7 +74,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 		MessageReceivedEvent event = getMockEvent("!bot");
 		when(event.getAuthor().isBot()).thenReturn(true);
 		messageListener.onMessageReceived(event);
-		verify(testCommandEventHandler, never()).matches(Mockito.any(InputValues.class));
+		verify(testCommandEventHandler, never()).matches(any(InputValues.class));
 	}
 
 
