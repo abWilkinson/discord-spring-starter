@@ -1,5 +1,3 @@
-[version]: https://api.bintray.com/packages/abwilkinson/maven/discord-spring-starter/images/download.svg
-[download]: https://bintray.com/abwilkinson/maven/discord-spring-starter/_latestVersion
 [ ![version][] ][download]
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0f34e92024384457b594b87aa1db7ea3)](https://www.codacy.com/manual/ab.wilkinson/discord-spring-starter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=abWilkinson/discord-spring-starter&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/0f34e92024384457b594b87aa1db7ea3)](https://www.codacy.com/manual/ab.wilkinson/discord-spring-starter?utm_source=github.com&utm_medium=referral&utm_content=abWilkinson/discord-spring-starter&utm_campaign=Badge_Coverage)
@@ -133,6 +131,9 @@ As this is just a wrapper around JDA, other than implementing an EventHandler in
 
 JDA can be accessed directly be accessing the JDA bean directly
 ```
-    @Autowired
-    private JDA jda;
+@Autowired
+private JDA jda;
 ```
+
+[version]: https://api.bintray.com/packages/abwilkinson/maven/discord-spring-starter/images/download.svg
+[download]: https://bintray.com/abwilkinson/maven/discord-spring-starter/_latestVersion
