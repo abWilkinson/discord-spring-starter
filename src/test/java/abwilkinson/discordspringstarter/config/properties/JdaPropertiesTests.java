@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JdaPropertiesTests extends BaseSpringBootTest {
 
     @Autowired
-    JdaProperties properties;
+    private JdaProperties properties;
 
     @Test
     public void testJdaSecretIsSet() {
