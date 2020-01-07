@@ -8,16 +8,13 @@ import net.dv8tion.jda.api.events.ReadyEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.LoggerFactory;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ReadyEventListenerTests {
@@ -45,9 +42,6 @@ public class ReadyEventListenerTests {
     public void testOtherEventsDontTriggerMessage() {
         Event event = mock(Event.class);
         readyEventListener.onEvent(event);
-        verify(mockAppender).doAppend(ArgumentMatchers.argThat(argument -> {
-            assertNull(argument.getMessage());
-            return true;
-        }));
+        verify(mockAppender, never()).doAppend(Mockito.any());
     }
 }
