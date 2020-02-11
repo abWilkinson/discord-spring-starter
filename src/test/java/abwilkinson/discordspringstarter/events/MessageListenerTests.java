@@ -1,6 +1,7 @@
 package abwilkinson.discordspringstarter.events;
 
 import abwilkinson.discordspringstarter.BaseSpringBootTest;
+import abwilkinson.discordspringstarter.events.help.HelpContext;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -34,7 +35,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 	}
 
 	@Test
-	public void setTestStatefulEventHandlerReceivesCommands() {
+	public void testStatefulEventHandlerReceivesCommands() {
 		String expectedMessage = "test";
 		String rawMessage = "!" + expectedMessage;
 		MessageReceivedEvent event = getMockEvent(rawMessage);
@@ -47,7 +48,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 	}
 
 	@Test
-	public void setTestStatefulEventHandlerReceivesNonCommands() {
+	public void stestStatefulEventHandlerReceivesNonCommands() {
 		String expectedMessage = "test";
 		MessageReceivedEvent event = getMockEvent(expectedMessage);
 		when(testStatefulEventHandler.matches(any(InputValues.class))).thenReturn(true);
@@ -70,13 +71,24 @@ public class MessageListenerTests extends BaseSpringBootTest {
 	}
 
 	@Test
-	public void messagesFromBotsAreIgnored() {
+	public void testMessagesFromBotsAreIgnored() {
 		MessageReceivedEvent event = getMockEvent("!bot");
 		when(event.getAuthor().isBot()).thenReturn(true);
 		messageListener.onMessageReceived(event);
 		verify(testCommandEventHandler, never()).matches(any(InputValues.class));
 	}
 
+	@Test
+	public void testHelpCommandsAreProcessed() {
+		String expectedMessage = "help something";
+		MessageReceivedEvent event = getMockEvent(expectedMessage);
+		when(testCommandEventHandler.helpCommandReceived(any(MessageReceivedEvent.class), any(InputValues.class))).thenReturn(true);
+		when(event.getAuthor().getIdLong()).thenReturn(1L);
+
+		messageListener.onMessageReceived(event);
+
+		verify(testCommandEventHandler, times(1)).helpCommandReceived(any(MessageReceivedEvent.class), any(InputValues.class));
+	}
 
 	protected MessageReceivedEvent getMockEvent(String rawMessage) {
 		Message mockMessage = mock(Message.class);
@@ -88,7 +100,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 	}
 
 	@Component
-	public static class TestCommandEventHandler implements CommandEventHandler {
+	public static class TestCommandEventHandler implements CommandEventHandler, HelpContext {
 
 		@Override
 		public boolean messageReceived(MessageReceivedEvent event, InputValues message) {
@@ -98,6 +110,11 @@ public class MessageListenerTests extends BaseSpringBootTest {
 		@Override
 		public boolean matches(InputValues inputValues) {
 			return "test".equals(inputValues.getCommand());
+		}
+
+		@Override
+		public boolean helpCommandReceived(MessageReceivedEvent event, InputValues message) {
+			return true;
 		}
 	}
 
