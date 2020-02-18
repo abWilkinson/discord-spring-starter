@@ -80,7 +80,7 @@ public class MessageListenerTests extends BaseSpringBootTest {
 
 	@Test
 	public void testHelpCommandsAreProcessed() {
-		String expectedMessage = "help something";
+		String expectedMessage = "!help something";
 		MessageReceivedEvent event = getMockEvent(expectedMessage);
 		when(testCommandEventHandler.helpCommandReceived(any(MessageReceivedEvent.class), any(InputValues.class))).thenReturn(true);
 		when(event.getAuthor().getIdLong()).thenReturn(1L);

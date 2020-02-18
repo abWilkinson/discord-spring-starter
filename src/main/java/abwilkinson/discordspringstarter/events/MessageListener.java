@@ -36,7 +36,7 @@ public class MessageListener extends ListenerAdapter {
 		String rawMessage = event.getMessage().getContentRaw();
 		String[] split = rawMessage.split("^!");
 		boolean actionTaken;
-		if (rawMessage.startsWith(botProperties.getHelpCommand())) {
+		if (rawMessage.startsWith("!" + botProperties.getHelpCommand())) {
 			handleHelpCommand(event, new InputValues(rawMessage));
 			return;
 		}
