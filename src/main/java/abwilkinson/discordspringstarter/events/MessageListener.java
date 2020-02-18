@@ -1,6 +1,8 @@
 package abwilkinson.discordspringstarter.events;
 
+import abwilkinson.discordspringstarter.config.properties.BotProperties;
 import abwilkinson.discordspringstarter.events.service.CommandEventHandlerService;
+import abwilkinson.discordspringstarter.events.service.HelpService;
 import abwilkinson.discordspringstarter.events.service.StatefulEventHandlerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,8 @@ import java.util.List;
 public class MessageListener extends ListenerAdapter {
 	private final CommandEventHandlerService commandEventHandlerService;
 	private final StatefulEventHandlerService statefulEventHandlerService;
+	private final HelpService helpService;
+	private final BotProperties botProperties;
 
 	@Override
 	public void onMessageReceived(@NotNull MessageReceivedEvent event) {
@@ -32,6 +36,10 @@ public class MessageListener extends ListenerAdapter {
 		String rawMessage = event.getMessage().getContentRaw();
 		String[] split = rawMessage.split("^!");
 		boolean actionTaken;
+		if (rawMessage.startsWith(botProperties.getHelpCommand())) {
+			handleHelpCommand(event, new InputValues(rawMessage));
+			return;
+		}
 		if (split.length > 1) {
 			actionTaken = handleCommandMessage(event, split[1]);
 		} else {
@@ -40,7 +48,10 @@ public class MessageListener extends ListenerAdapter {
 		if (!actionTaken) {
 			log.info("No action taken for message: " + rawMessage);
 		}
+	}
 
+	private void handleHelpCommand(MessageReceivedEvent event, InputValues inputValues) {
+		helpService.callHelpContexts(event, inputValues);
 	}
 
 	private boolean handleCommandMessage(MessageReceivedEvent event, String message) {
