@@ -1,7 +1,9 @@
 package abwilkinson.discordspringstarter.events;
 
 import abwilkinson.discordspringstarter.config.properties.BotProperties;
-import abwilkinson.discordspringstarter.events.service.*;
+import abwilkinson.discordspringstarter.events.service.CommandEventHandlerService;
+import abwilkinson.discordspringstarter.events.service.HelpService;
+import abwilkinson.discordspringstarter.events.service.StatefulEventHandlerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
