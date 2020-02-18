@@ -38,7 +38,7 @@ public class HelpService {
         if (helpContexts != null) {
             handlerCalled = helpContexts.stream().anyMatch(context -> context.helpCommandReceived(event, inputValues));
         }
-        if (!handlerCalled) {
+        if (!handlerCalled && genericHelpProvider != null) {
             genericHelpProvider.handleHelpCommand(event, inputValues);
         }
     }
