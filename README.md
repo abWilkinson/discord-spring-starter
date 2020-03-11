@@ -19,10 +19,9 @@ dependencies {
 }
 
 repositories {
-	maven {
-		url  "https://dl.bintray.com/abwilkinson/maven"
-	}
+	jcenter()
 }
+
 ```
 
 #### Maven
@@ -30,63 +29,16 @@ repositories {
 <dependency>
 	<groupId>abwilkinson</groupId>
 	<artifactId>discord-spring-starter</artifactId>
-	<version>0.4.3</version>
-	<type>pom</type>
+	<version>VERSION</version>
 </dependency>
 ```
 
-Needs the repository adding to settings.xml
 ```
-<settings xmlns='http://maven.apache.org/SETTINGS/1.0.0' xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
-  <profiles>
-    <profile>
-      <repositories>
-        <repository>
-          <snapshots>
-            <enabled>
-              false
-            </enabled>
-          </snapshots>
-          <id>
-            bintray-abwilkinson-maven
-          </id>
-          <name>
-            bintray
-          </name>
-          <url>
-            https://dl.bintray.com/abwilkinson/maven
-          </url>
-        </repository>
-      </repositories>
-      <pluginRepositories>
-        <pluginRepository>
-          <snapshots>
-            <enabled>
-              false
-            </enabled>
-          </snapshots>
-          <id>
-            bintray-abwilkinson-maven
-          </id>
-          <name>
-            bintray-plugins
-          </name>
-          <url>
-            https://dl.bintray.com/abwilkinson/maven
-          </url>
-        </pluginRepository>
-      </pluginRepositories>
-      <id>
-        bintray
-      </id>
-    </profile>
-  </profiles>
-  <activeProfiles>
-    <activeProfile>
-      bintray
-    </activeProfile>
-  </activeProfiles>
-</settings>
+<repository>
+    <id>jcenter</id>
+    <name>jcenter-bintray</name>
+    <url>https://jcenter.bintray.com</url>
+</repository>
 ```
 
 ### Add Discord bot secret
